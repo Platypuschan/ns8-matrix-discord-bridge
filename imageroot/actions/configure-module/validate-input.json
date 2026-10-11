@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Configure the Matrix-Discord voice bridge",
+    "$id": "http://nethserver.org/json-schema/task/input/matrix-discord-bridge/configure-module",
+    "description": "Configure the bridge from a Matrix 1:1 call to a Discord voice channel. Omitted fields keep their current value; omitted or empty tokens keep the current token. After the request all required settings must be set.",
+    "examples": [
+        {
+            "matrix_homeserver_url": "https://matrix.example.org",
+            "matrix_access_token": "syt_...",
+            "matrix_allowed_user": "@me:example.org",
+            "discord_bot_token": "MTIz...",
+            "discord_guild_id": "123456789012345678",
+            "discord_voice_channel_id": "234567890123456789"
+        },
+        {
+            "matrix_room_name": "Discord voice",
+            "public_ip": "203.0.113.10",
+            "use_homeserver_turn": true
+        },
+        {}
+    ],
+    "type": "object",
+    "properties": {
+        "matrix_homeserver_url": {
+            "type": "string",
+            "description": "Client-server API URL of the bot's homeserver, like https://matrix.example.org",
+            "maxLength": 2048
+        },
+        "matrix_access_token": {
+            "type": "string",
+            "description": "Access token of the bot's Matrix account; empty keeps the current token",
+            "maxLength": 4096
+        },
+        "matrix_allowed_user": {
+            "type": "string",
+            "description": "The only Matrix user whose calls are accepted, like @me:example.org",
+            "maxLength": 255
+        },
+        "matrix_room_name": {
+            "type": "string",
+            "description": "Name of the unencrypted room the bot creates for the allowed user",
+            "maxLength": 100
+        },
+        "discord_bot_token": {
+            "type": "string",
+            "description": "Discord bot token; empty keeps the current token",
+            "maxLength": 4096
+        },
+        "discord_guild_id": {
+            "type": "string",
+            "description": "ID of the Discord server (guild)",
+            "maxLength": 20
+        },
+        "discord_voice_channel_id": {
+            "type": "string",
+            "description": "ID of the Discord voice channel",
+            "maxLength": 20
+        },
+        "public_ip": {
+            "type": "string",
+            "description": "Public IP address of this node to advertise for call media; empty for none",
+            "maxLength": 45
+        },
+        "use_homeserver_turn": {
+            "type": "boolean",
+            "description": "Use the TURN server of the bot's homeserver for call media"
+        }
+    }
+}

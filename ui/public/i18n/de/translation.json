@@ -1,0 +1,90 @@
+{
+  "error": {
+    "403": "Operation nicht zugelassen",
+    "cannot_retrieve_installed_modules": "installierte Module nicht abrufbar",
+    "401": "fehlerhafte Anmeldung",
+    "cannot_retrieve_module_info": "Modulinfo nicht abrufbar",
+    "generic_error": "Etwas ist schief gegangen",
+    "error": "Fehler",
+    "network_timeout": "Netzwerk Timeout",
+    "404": "Ressource nicht gefunden",
+    "network_error": "Netzwerkfehler",
+    "validation_error": "Fehlerhafte Prüfung"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "save": "Speichern",
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert",
+    "configuring": "Konfiguriere",
+    "instance_configuration": "Matrix-Discord-Bridge konfigurieren",
+    "not_configured": "Noch nicht konfiguriert",
+    "not_configured_description": "Gib unten die Matrix- und Discord-Einstellungen ein, um die Bridge zu starten.",
+    "how_title": "So funktioniert es",
+    "how_description": "Rufe den Bot aus Element Web oder Element Desktop in dem unverschlüsselten Raum an, den er für dich anlegt. Der Bot betritt den Discord-Sprachkanal und überträgt den Ton in beide Richtungen; beim Auflegen verlässt er ihn wieder. Element X wird nicht unterstützt.",
+    "matrix_title": "Matrix",
+    "matrix_description": "Verwende ein eigenes Matrix-Konto für den Bot. Nur Anrufe des erlaubten Benutzers werden angenommen.",
+    "homeserver_url": "Homeserver-URL",
+    "access_token": "Zugriffstoken des Bots",
+    "allowed_user": "Erlaubter Benutzer",
+    "allowed_user_helper": "Deine Matrix-ID, z. B. @ich:example.org",
+    "room_name": "Raumname",
+    "room_name_helper": "Name des unverschlüsselten Raums, den der Bot für dich anlegt",
+    "discord_title": "Discord",
+    "discord_description": "Der Bot braucht im Sprachkanal die Berechtigungen Kanal anzeigen, Verbinden und Sprechen. Die IDs kopierst du mit aktiviertem Entwicklermodus in Discord.",
+    "bot_token": "Bot-Token",
+    "guild_id": "Server-ID",
+    "channel_id": "Sprachkanal-ID",
+    "token_set_helper": "Ein Token ist gespeichert. Leer lassen, um es zu behalten.",
+    "network_title": "Anruf-Medien",
+    "network_description": "Der Ton zwischen deinem Matrix-Client und der Bridge läuft über die UDP-Ports {ports} dieses Knotens, die in der Firewall geöffnet sind. Hinter NAT leite diese Ports weiter und gib die öffentliche IP-Adresse ein, oder nutze den TURN-Server des Homeservers.",
+    "public_ip": "Öffentliche IP-Adresse (optional)",
+    "public_ip_helper": "Wird deinem Matrix-Client für den Ton des Anrufs mitgeteilt",
+    "homeserver_turn": "TURN-Server des Homeservers verwenden",
+    "invalid_homeserver_url": "Muss eine http://- oder https://-URL sein, z. B. https://matrix.example.org",
+    "invalid_matrix_user": "Muss eine Matrix-Benutzer-ID sein, z. B. @ich:example.org",
+    "invalid_discord_id": "Muss eine Discord-ID sein (17 bis 20 Ziffern)",
+    "invalid_token": "Darf keine Leerzeichen oder Zeilenumbrüche enthalten",
+    "invalid_room_name": "Muss 1 bis 100 Zeichen in einer Zeile lang sein",
+    "invalid_ip_address": "Muss eine IPv4- oder IPv6-Adresse sein",
+    "invalid_boolean": "Ungültiger Wert",
+    "required": "Erforderlich"
+  },
+  "common": {
+    "required": "erforderlich",
+    "work_in_progress": "In Arbeit",
+    "processing": "Ausführung..."
+  },
+  "status": {
+    "created": "erstellt",
+    "size": "Größe",
+    "name": "Name",
+    "no_images": "Keine Abbilder",
+    "app_volumes": "App Volumen | App Volumen",
+    "services": "Dienst | Dienste",
+    "app_images": "App-Abbild | App-Abbilder",
+    "no_services": "Keine Dienste",
+    "app_instance": "App-Instanz",
+    "mount": "Einbindepunkt",
+    "title": "Status",
+    "installation_node": "Knoten der Installation",
+    "node": "Knoten",
+    "no_volumes": "keine Volumen"
+  },
+  "about": {
+    "title": "Über"
+  },
+  "action": {
+    "list-backup-repositories": "Liste der Datensicherungs-Speicherort",
+    "get-module-info": "Informationen zum Modul abrufen",
+    "list-installed-modules": "installierte Module auflisten",
+    "list-backups": "Datensicherungen auflisten",
+    "get-status": "Status abfragen",
+    "configure-module": "Modul konfigurieren",
+    "get-configuration": "Konfiguration abrufen",
+    "get-name": "Name abrufen"
+  },
+  "task": {
+    "cannot_create_task": "{task} kann nicht erstellt werden"
+  }
+}

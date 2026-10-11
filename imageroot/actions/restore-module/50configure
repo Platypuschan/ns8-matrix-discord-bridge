@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+# The settings come back with state/bridge.json from the backup; an empty
+# request keeps them, renders bridge.env and starts the bridge.
+
+import os
+
+import agent
+
+configure_retval = agent.tasks.run(agent_id=os.environ["AGENT_ID"], action="configure-module", data={})
+agent.assert_exp(configure_retval["exit_code"] == 0, "The configure-module subtask failed!")

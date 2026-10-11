@@ -1,0 +1,21 @@
+{
+  "name": "matrix-discord-bridge",
+  "description": {
+    "en": "Bridge a Matrix voice call to a Discord voice channel: call the bot and it joins the channel for you.",
+    "de": "Verbindet einen Matrix-Sprachanruf mit einem Discord-Sprachkanal: Ruf den Bot an, und er betritt den Kanal für dich."
+  },
+  "categories": [
+    "collaboration"
+  ],
+  "authors": [
+    {
+      "name": "Platypuschan"
+    }
+  ],
+  "docs": {
+    "documentation_url": "https://github.com/Platypuschan/discord-matrix-voice#readme",
+    "bug_url": "https://github.com/Platypuschan/ns8-matrix-discord-bridge/issues",
+    "code_url": "https://github.com/Platypuschan/ns8-matrix-discord-bridge"
+  },
+  "source": "ghcr.io/platypuschan/matrix-discord-bridge"
+}

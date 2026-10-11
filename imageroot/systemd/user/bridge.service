@@ -1,0 +1,42 @@
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+#
+# Matrix-Discord voice bridge (github.com/Platypuschan/discord-matrix-voice).
+# Most parts of this file come from podman-generate-systemd.
+#
+# The bridge keeps no data: its settings come from bridge.env, rendered by
+# configure-module. Call media from the Matrix client arrives on the UDP
+# ports NS8 allocated to the module (UDP_PORTS_RANGE, opened in the
+# firewall by create-module); the bridge opens its WebRTC sockets only in
+# that range. With an invalid token the bridge exits; it is retried every
+# 30 seconds.
+#
+
+[Unit]
+Description=Matrix-Discord voice bridge
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+EnvironmentFile=%E/state/environment
+WorkingDirectory=%E/state
+Restart=always
+RestartSec=30
+TimeoutStopSec=30
+ExecStartPre=/bin/rm -f %t/bridge.pid %t/bridge.ctr-id
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/bridge.pid \
+    --cidfile %t/bridge.ctr-id --cgroups=no-conmon \
+    --replace -d --name bridge \
+    --publish ${UDP_PORTS_RANGE}:${UDP_PORTS_RANGE}/udp \
+    --env-file %E/state/bridge.env \
+    --env WEBRTC_PORT_RANGE=${UDP_PORTS_RANGE} \
+    ${DISCORD_MATRIX_VOICE_IMAGE}
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/bridge.ctr-id -t 10
+SyslogIdentifier=%u
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/bridge.ctr-id
+PIDFile=%t/bridge.pid
+Type=forking
+
+[Install]
+WantedBy=default.target
