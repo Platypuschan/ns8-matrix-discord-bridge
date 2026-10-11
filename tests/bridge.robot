@@ -155,8 +155,10 @@ The bridge runs from the pinned image
     Should Be Equal As Integers    ${rc}    0
     # The running container uses it (after an update: the new one), as the
     # unprivileged user of the distroless image
-    ${running} =    Execute Command    runagent -m ${module_id} podman inspect --format '{{.ImageName}} {{.Config.User}}' bridge
-    Should Be Equal    ${running}    ${image} 65532
+    # No space in the format: runagent re-runs itself through runuser, which
+    # can split a quoted argument again
+    ${running} =    Execute Command    runagent -m ${module_id} podman inspect --format {{.ImageName}},{{.Config.User}} bridge
+    Should Be Equal    ${running}    ${image},65532
     ${enabled} =    Execute Command    runagent -m ${module_id} systemctl --user is-enabled bridge.service
     Should Be Equal    ${enabled}    enabled
 
