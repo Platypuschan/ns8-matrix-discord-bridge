@@ -83,6 +83,14 @@ Read allocated UDP ports
     Should Be Equal As Integers    ${{int($last) - int($first)}}    7    expected 8 UDP ports
     Set Suite Variable    ${udp_ports}    ${ports}
 
+The last bridge container used the image
+    [Arguments]    ${image}
+    # podman logs "container create <id> (image=<image>, name=<name>, ...)"
+    # to the journal for every start; the newest one for "bridge" counts.
+    ${uid} =    Execute Command    id -u ${module_id}
+    ${event} =    Execute Command    journalctl -q --no-pager _UID=${uid} SYSLOG_IDENTIFIER=podman | grep 'container create' | grep 'name=bridge,' | tail -n 1
+    Should Contain    ${event}    (image=${image}, name=bridge,
+
 *** Test Cases ***
 Start the fake homeserver
     Put File    ${CURDIR}/fake_homeserver.py    /root/fake_homeserver.py
@@ -153,6 +161,16 @@ The bridge runs from the pinned image
     ${rc} =    Execute Command    runagent -m ${module_id} podman image exists ${image}
     ...    return_rc=True    return_stdout=False
     Should Be Equal As Integers    ${rc}    0
+    # The bridge runs from it (after an update: the new one). With the fake
+    # Discord token of the tests the bridge exits right after its login
+    # attempt and systemd starts it again 30 s later, so the container exists
+    # for less than a second; the journal keeps podman's create events.
+    Wait Until Keyword Succeeds    90 seconds    3 seconds    The last bridge container used the image    ${image}
+    # The unprivileged user of the distroless image. One field per call:
+    # runagent re-runs the command through runuser and a shell, which splits
+    # quoted spaces and brace-expands "{a},{b}".
+    ${user} =    Execute Command    runagent -m ${module_id} podman image inspect --format {{.Config.User}} ${image}
+    Should Be Equal    ${user}    65532
     ${enabled} =    Execute Command    runagent -m ${module_id} systemctl --user is-enabled bridge.service
     Should Be Equal    ${enabled}    enabled
 

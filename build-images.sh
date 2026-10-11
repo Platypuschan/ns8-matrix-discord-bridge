@@ -21,7 +21,7 @@ repository_source="${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY:
 # main branch is pushed as discord-matrix-voice:<first 12 digits of the
 # commit>, and those tags are never overwritten. NS8 passes the image to the
 # module as DISCORD_MATRIX_VOICE_IMAGE. Raise CATALOG_VERSION when changing it.
-bridge_image="ghcr.io/platypuschan/discord-matrix-voice:ae1061c72922"
+bridge_image="ghcr.io/platypuschan/discord-matrix-voice:bc5c19d7d62c"
 # Keep in sync with the Node.js version used by .github/workflows/validate.yml
 NODE_IMAGE="docker.io/library/node:24.20.0"
 nodebuilder="nodebuilder-matrix-discord-bridge-${NODE_IMAGE##*:}"
