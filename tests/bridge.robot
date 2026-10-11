@@ -83,6 +83,15 @@ Read allocated UDP ports
     Should Be Equal As Integers    ${{int($last) - int($first)}}    7    expected 8 UDP ports
     Set Suite Variable    ${udp_ports}    ${ports}
 
+The bridge container runs the image
+    [Arguments]    ${image}
+    # One field per call: runagent re-runs the command through runuser and a
+    # shell, which splits quoted spaces and brace-expands "{a},{b}"
+    ${running} =    Execute Command    runagent -m ${module_id} podman inspect --format {{.ImageName}} bridge
+    Should Be Equal    ${running}    ${image}
+    ${user} =    Execute Command    runagent -m ${module_id} podman inspect --format {{.Config.User}} bridge
+    Should Be Equal    ${user}    65532
+
 *** Test Cases ***
 Start the fake homeserver
     Put File    ${CURDIR}/fake_homeserver.py    /root/fake_homeserver.py
@@ -154,13 +163,10 @@ The bridge runs from the pinned image
     ...    return_rc=True    return_stdout=False
     Should Be Equal As Integers    ${rc}    0
     # The running container uses it (after an update: the new one), as the
-    # unprivileged user of the distroless image
-    # One field per call: runagent re-runs the command through runuser and a
-    # shell, which splits quoted spaces and brace-expands "{a},{b}"
-    ${running} =    Execute Command    runagent -m ${module_id} podman inspect --format {{.ImageName}} bridge
-    Should Be Equal    ${running}    ${image}
-    ${user} =    Execute Command    runagent -m ${module_id} podman inspect --format {{.Config.User}} bridge
-    Should Be Equal    ${user}    65532
+    # unprivileged user of the distroless image. With the fake Discord token
+    # of the tests the bridge exits after its login attempt and systemd starts
+    # it again 30 s later; the container exists only for a few seconds.
+    Wait Until Keyword Succeeds    120 seconds    0.5 seconds    The bridge container runs the image    ${image}
     ${enabled} =    Execute Command    runagent -m ${module_id} systemctl --user is-enabled bridge.service
     Should Be Equal    ${enabled}    enabled
 
