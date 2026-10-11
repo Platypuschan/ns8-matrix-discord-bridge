@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Get the Matrix-Discord voice bridge settings",
+    "$id": "http://nethserver.org/json-schema/task/output/matrix-discord-bridge/get-configuration",
+    "description": "Get the bridge settings. Tokens are never returned, only whether they are set.",
+    "examples": [
+        {
+            "matrix_homeserver_url": "https://matrix.example.org",
+            "matrix_access_token_set": true,
+            "matrix_allowed_user": "@me:example.org",
+            "matrix_room_name": "Discord voice",
+            "discord_bot_token_set": true,
+            "discord_guild_id": "123456789012345678",
+            "discord_voice_channel_id": "234567890123456789",
+            "public_ip": "",
+            "use_homeserver_turn": true,
+            "configured": true,
+            "udp_ports": "20004-20011"
+        }
+    ],
+    "type": "object",
+    "required": [
+        "matrix_homeserver_url",
+        "matrix_access_token_set",
+        "matrix_allowed_user",
+        "matrix_room_name",
+        "discord_bot_token_set",
+        "discord_guild_id",
+        "discord_voice_channel_id",
+        "public_ip",
+        "use_homeserver_turn",
+        "configured",
+        "udp_ports"
+    ],
+    "properties": {
+        "matrix_homeserver_url": {
+            "type": "string"
+        },
+        "matrix_access_token_set": {
+            "type": "boolean"
+        },
+        "matrix_allowed_user": {
+            "type": "string"
+        },
+        "matrix_room_name": {
+            "type": "string"
+        },
+        "discord_bot_token_set": {
+            "type": "boolean"
+        },
+        "discord_guild_id": {
+            "type": "string"
+        },
+        "discord_voice_channel_id": {
+            "type": "string"
+        },
+        "public_ip": {
+            "type": "string"
+        },
+        "use_homeserver_turn": {
+            "type": "boolean"
+        },
+        "configured": {
+            "type": "boolean",
+            "description": "All required settings are set"
+        },
+        "udp_ports": {
+            "type": "string",
+            "description": "UDP port range of this node used for call media, like 20004-20011 (opened in the firewall)"
+        }
+    },
+    "not": {
+        "anyOf": [
+            {
+                "required": [
+                    "matrix_access_token"
+                ]
+            },
+            {
+                "required": [
+                    "discord_bot_token"
+                ]
+            }
+        ]
+    }
+}

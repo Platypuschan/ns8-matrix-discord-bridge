@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+set -e
+
+# Redirect any output to the journal (stderr)
+exec 1>&2
+
+# enable loads the unit; reset-failed fails on a unit that is not loaded yet.
+systemctl --user enable bridge.service
+# A previous failed start can have hit the start rate limit; clear it first.
+systemctl --user reset-failed bridge.service
+# The bridge reads bridge.env only at start. Restart it only when
+# 10configure_bridge changed it (also in an earlier, failed run), so saving
+# unchanged settings does not drop a running call.
+if ! systemctl --user is-active --quiet bridge.service; then
+    systemctl --user start bridge.service
+elif [[ -e bridge-restart-needed ]]; then
+    systemctl --user restart bridge.service
+fi
+rm -f bridge-restart-needed

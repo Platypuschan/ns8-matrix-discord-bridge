@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+# Render bridge.env for the new release, keep the UDP ports open, load the
+# new unit files and restart the bridge if it is running (the bridge image
+# may have changed, too).
+
+import os
+import subprocess
+import sys
+
+import agent
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "pypkg"))
+import bridge_setup
+
+state_dir = os.environ.get("AGENT_STATE_DIR", ".")
+with bridge_setup.settings_lock(state_dir):
+    settings = bridge_setup.read_settings(state_dir)
+    if bridge_setup.is_complete(settings):
+        bridge_setup.write_env(settings, state_dir)
+
+agent.assert_exp(
+    agent.add_public_service(os.environ["MODULE_ID"], bridge_setup.firewall_ports(os.environ), replace_ports=True),
+    "Firewall service configuration has failed",
+)
+
+subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
+subprocess.run(["systemctl", "--user", "try-restart", "bridge.service"], check=True)
+# A running bridge now has the new settings; a stopped one reads them when
+# it starts.
+try:
+    os.remove(os.path.join(state_dir, bridge_setup.RESTART_FLAG))
+except FileNotFoundError:
+    pass

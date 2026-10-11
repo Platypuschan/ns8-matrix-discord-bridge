@@ -1,0 +1,90 @@
+{
+  "common": {
+    "required": "Required",
+    "work_in_progress": "Work in progress",
+    "processing": "Processing..."
+  },
+  "status": {
+    "title": "Status",
+    "app_instance": "App instance",
+    "services": "Service | Services",
+    "app_images": "App image | App images",
+    "app_volumes": "App volume | App volumes",
+    "installation_node": "Installation node",
+    "node": "Node",
+    "name": "Name",
+    "size": "Size",
+    "created": "Created",
+    "mount": "Mount",
+    "no_services": "No services",
+    "no_images": "No images",
+    "no_volumes": "No volumes"
+  },
+  "settings": {
+    "title": "Settings",
+    "save": "Save",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "configuring": "Configuring",
+    "instance_configuration": "Configure Matrix-Discord bridge",
+    "not_configured": "Not configured yet",
+    "not_configured_description": "Enter the Matrix and Discord settings below to start the bridge.",
+    "how_title": "How it works",
+    "how_description": "Call the bot from Element Web or Element Desktop in the unencrypted room it creates for you. The bot joins the Discord voice channel and bridges the audio both ways; hanging up makes it leave. Element X is not supported.",
+    "matrix_title": "Matrix",
+    "matrix_description": "Use a separate Matrix account for the bot. Only calls from the allowed user are accepted.",
+    "homeserver_url": "Homeserver URL",
+    "access_token": "Bot access token",
+    "allowed_user": "Allowed user",
+    "allowed_user_helper": "Your Matrix ID, like @me:example.org",
+    "room_name": "Room name",
+    "room_name_helper": "Name of the unencrypted room the bot creates for you",
+    "discord_title": "Discord",
+    "discord_description": "The bot needs the View Channel, Connect and Speak permissions in the voice channel. Copy the IDs with Developer Mode enabled in Discord.",
+    "bot_token": "Bot token",
+    "guild_id": "Server ID",
+    "channel_id": "Voice channel ID",
+    "token_set_helper": "A token is saved. Leave empty to keep it.",
+    "network_title": "Call media",
+    "network_description": "The call audio between your Matrix client and the bridge uses the UDP ports {ports} of this node, which are open in the firewall. Behind NAT, forward these ports and enter the public IP address, or rely on the TURN server of the homeserver.",
+    "public_ip": "Public IP address (optional)",
+    "public_ip_helper": "Advertised to your Matrix client for the call audio",
+    "homeserver_turn": "Use the homeserver's TURN server",
+    "invalid_homeserver_url": "Must be an http:// or https:// URL, like https://matrix.example.org",
+    "invalid_matrix_user": "Must be a Matrix user ID, like @me:example.org",
+    "invalid_discord_id": "Must be a Discord ID (17 to 20 digits)",
+    "invalid_token": "Must not contain spaces or line breaks",
+    "invalid_room_name": "Must be 1 to 100 characters on one line",
+    "invalid_ip_address": "Must be an IPv4 or IPv6 address",
+    "invalid_boolean": "Invalid value",
+    "required": "Required"
+  },
+  "about": {
+    "title": "About"
+  },
+  "task": {
+    "cannot_create_task": "Cannot create task {action}"
+  },
+  "action": {
+    "get-status": "Get status",
+    "get-configuration": "Get configuration",
+    "configure-module": "Configure module",
+    "get-module-info": "Get module info",
+    "get-name": "Get name",
+    "list-backup-repositories": "List backup repositories",
+    "list-backups": "List backups",
+    "list-installed-modules": "List installed modules"
+  },
+  "error": {
+    "error": "Error",
+    "generic_error": "Something went wrong",
+    "validation_error": "Validation error",
+    "network_error": "Network error",
+    "network_timeout": "Network timeout",
+    "401": "Invalid authentication",
+    "403": "Operation not authorized",
+    "404": "Resource not found",
+    "cannot_retrieve_module_info": "Cannot retrieve module info",
+    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules"
+  }
+}
