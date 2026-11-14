@@ -6,7 +6,9 @@
 
 # Render bridge.env for the new release, keep the UDP ports open, load the
 # new unit files and restart the bridge if it is running (the bridge image
-# may have changed, too).
+# may have changed, too). The core reloads the unit files before the hooks
+# (update-module/05pullimages); the reload below is harmless and keeps this
+# hook usable on its own.
 
 import os
 import subprocess
